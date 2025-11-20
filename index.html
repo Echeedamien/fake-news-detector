@@ -1,337 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fake News Detector</title>
-
-    <!-- Fonts & Icons -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-
-    <!-- CSS -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-  </head>
-
-  <body>
+</head>
+<body>
     <!-- HEADER -->
     <header>
-      <nav>
-        <div class="logo">
-          <i class="fas fa-newspaper"></i>
-          <span>FakeNewsDetector</span>
-        </div>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <span>FakeNewsDetector</span>
+            </div>
 
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- MAIN -->
     <main>
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-content">
-          <h1>Detect Fake News with AI</h1>
-          <p>
-            Our advanced machine learning model helps you detect misleading or
-            fake news instantly.
-          </p>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Detect Fake News with AI</h1>
+                <p>
+                    Our advanced machine learning model helps you detect misleading or
+                    fake news instantly.
+                </p>
 
-          {% if not model_loaded %}
-          <div class="warning">
-            <i class="fas fa-exclamation-triangle"></i>
-            <p>
-              Model not loaded. Please run
-              <strong>train_model.py</strong> first.
-            </p>
-          </div>
-          {% endif %}
-        </div>
-      </section>
+                <div id="model-status" class="warning hidden">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p id="model-message">
+                        Model not loaded. Please check if the model files are available.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-      <!-- DETECTOR -->
-      <section class="detector">
-        <div class="container">
-          <h2>Check News Authenticity</h2>
+        <!-- DETECTOR -->
+        <section class="detector">
+            <div class="container">
+                <h2>Check News Authenticity</h2>
 
-          <!-- TAB SWITCHER -->
-          <div class="tab-container">
-            <div class="tab active" data-tab="text">Text</div>
-            <div class="tab" data-tab="url">URL</div>
-          </div>
-
-          <!-- TEXT INPUT -->
-          <div class="input-group active" id="text-input">
-            <textarea
-              id="news-text"
-              rows="6"
-              placeholder="Paste news article or headline here..."
-            ></textarea>
-          </div>
-
-          <!-- URL INPUT -->
-          <div class="input-group" id="url-input">
-            <input
-              type="text"
-              id="article-url"
-              placeholder="Paste news article URL here (e.g., https://example.com/article)"
-            />
-          </div>
-
-          <!-- ONE BUTTON -->
-          <button
-            id="analyze-btn"
-            class="btn-primary"
-            {%
-            if
-            not
-            model_loaded
-            %}disabled{%
-            endif
-            %}
-          >
-            <i class="fas fa-search"></i> Analyze
-          </button>
-
-          <!-- ERROR -->
-          <div id="error" class="error hidden">
-            <i class="fas fa-exclamation-circle"></i>
-            <span id="error-message"></span>
-          </div>
-
-          <!-- LOADER -->
-          <div class="loader hidden" id="loader">
-            <div class="spinner"></div>
-            <p>Analyzing content...</p>
-          </div>
-
-          <!-- RESULTS -->
-          <div id="results" class="results hidden">
-            <div class="result-card">
-              <h3>Analysis Results</h3>
-              <div class="result-content">
-                <div class="prediction">
-                  <span class="label">Prediction:</span>
-                  <span id="prediction-text" class="value"></span>
+                <!-- TAB SWITCHER -->
+                <div class="tab-container">
+                    <div class="tab active" data-tab="text">Text</div>
+                    <div class="tab" data-tab="url">URL</div>
                 </div>
 
-                <div class="confidence">
-                  <span class="label">Confidence:</span>
-                  <span id="confidence-value" class="value"></span>
+                <!-- TEXT INPUT -->
+                <div class="input-group active" id="text-input">
+                    <textarea
+                        id="news-text"
+                        rows="6"
+                        placeholder="Paste news article or headline here..."
+                    ></textarea>
                 </div>
 
-                <div class="probability-bars">
-                  <div class="probability real">
-                    <span>Real News: <span id="real-prob">0%</span></span>
-                    <div class="bar">
-                      <div class="fill" id="real-fill" style="width: 0%"></div>
+                <!-- URL INPUT -->
+                <div class="input-group" id="url-input">
+                    <input
+                        type="text"
+                        id="article-url"
+                        placeholder="Paste news article URL here (e.g., https://example.com/article)"
+                    />
+                </div>
+
+                <!-- BUTTON -->
+                <button id="analyze-btn" class="btn-primary">
+                    <i class="fas fa-search"></i> Analyze
+                </button>
+
+                <!-- ERROR -->
+                <div id="error" class="error hidden">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="error-message"></span>
+                </div>
+
+                <!-- LOADER -->
+                <div class="loader hidden" id="loader">
+                    <div class="spinner"></div>
+                    <p>Analyzing content...</p>
+                </div>
+
+                <!-- RESULTS -->
+                <div id="results" class="results hidden">
+                    <div class="result-card">
+                        <h3>Analysis Results</h3>
+                        <div class="result-content">
+                            <div class="prediction">
+                                <span class="label">Prediction:</span>
+                                <span id="prediction-text" class="value"></span>
+                            </div>
+
+                            <div class="confidence">
+                                <span class="label">Confidence:</span>
+                                <span id="confidence-value" class="value"></span>
+                            </div>
+
+                            <div class="probability-bars">
+                                <div class="probability real">
+                                    <span>Real News: <span id="real-prob">0%</span></span>
+                                    <div class="bar">
+                                        <div class="fill" id="real-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="probability fake">
+                                    <span>Fake News: <span id="fake-prob">0%</span></span>
+                                    <div class="bar">
+                                        <div class="fill" id="fake-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-
-                  <div class="probability fake">
-                    <span>Fake News: <span id="fake-prob">0%</span></span>
-                    <div class="bar">
-                      <div class="fill" id="fake-fill" style="width: 0%"></div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- FEATURES -->
-      <section class="features">
-        <div class="container">
-          <h2>How It Works</h2>
+        <!-- FEATURES -->
+        <section class="features">
+            <div class="container">
+                <h2>How It Works</h2>
 
-          <div class="features-grid">
-            <div class="feature">
-              <i class="fas fa-code"></i>
-              <h3>AI-Powered Analysis</h3>
-              <p>
-                Our model evaluates linguistic patterns and context to detect
-                misinformation.
-              </p>
+                <div class="features-grid">
+                    <div class="feature">
+                        <i class="fas fa-code"></i>
+                        <h3>AI-Powered Analysis</h3>
+                        <p>
+                            Our model evaluates linguistic patterns and context to detect
+                            misinformation.
+                        </p>
+                    </div>
+
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Fast Results</h3>
+                        <p>
+                            Get instant verification of news authenticity within seconds.
+                        </p>
+                    </div>
+
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Stay Protected</h3>
+                        <p>
+                            Fight misinformation by verifying headlines and articles before
+                            sharing.
+                        </p>
+                    </div>
+                </div>
             </div>
-
-            <div class="feature">
-              <i class="fas fa-bolt"></i>
-              <h3>Fast Results</h3>
-              <p>
-                Get instant verification of news authenticity within seconds.
-              </p>
-            </div>
-
-            <div class="feature">
-              <i class="fas fa-shield-alt"></i>
-              <h3>Stay Protected</h3>
-              <p>
-                Fight misinformation by verifying headlines and articles before
-                sharing.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
     </main>
 
     <!-- FOOTER -->
     <footer>
-      <div class="container">
-        <p>&copy; 2023 FakeNewsDetector. All rights reserved.</p>
-      </div>
+        <div class="container">
+            <p>&copy; 2023 FakeNewsDetector. All rights reserved.</p>
+        </div>
     </footer>
 
+    <!-- Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Tabs
-        const tabs = document.querySelectorAll(".tab");
-        const textInputGroup = document.getElementById("text-input");
-        const urlInputGroup = document.getElementById("url-input");
-
-        // UI elements
-        const analyzeBtn = document.getElementById("analyze-btn");
-        const errorBox = document.getElementById("error");
-        const errorMsg = document.getElementById("error-message");
-        const loader = document.getElementById("loader");
-        const results = document.getElementById("results");
-
-        // Results elements
-        const predictionText = document.getElementById("prediction-text");
-        const confidenceValue = document.getElementById("confidence-value");
-        const realProb = document.getElementById("real-prob");
-        const fakeProb = document.getElementById("fake-prob");
-        const realFill = document.getElementById("real-fill");
-        const fakeFill = document.getElementById("fake-fill");
-
-        // Switch Tabs
-        tabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            tabs.forEach((t) => t.classList.remove("active"));
-            tab.classList.add("active");
-
-            const selected = tab.dataset.tab;
-
-            if (selected === "text") {
-              textInputGroup.classList.add("active");
-              urlInputGroup.classList.remove("active");
-            } else {
-              textInputGroup.classList.remove("active");
-              urlInputGroup.classList.add("active");
+        // Check model status on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                
+                if (data.status === 'healthy' && data.model_loaded) {
+                    // Model is loaded, enable the button
+                    document.getElementById('analyze-btn').disabled = false;
+                } else {
+                    // Show warning if model is not loaded
+                    document.getElementById('model-status').classList.remove('hidden');
+                    document.getElementById('analyze-btn').disabled = true;
+                }
+            } catch (error) {
+                console.error('Error checking model status:', error);
+                document.getElementById('model-status').classList.remove('hidden');
+                document.getElementById('analyze-btn').disabled = true;
             }
-          });
+            
+            // Initialize the rest of the UI
+            initUI();
         });
 
-        // Analyze button
-        analyzeBtn.addEventListener("click", () => {
-          const activeTab = document.querySelector(".tab.active").dataset.tab;
+        function initUI() {
+            // Tabs
+            const tabs = document.querySelectorAll(".tab");
+            const textInputGroup = document.getElementById("text-input");
+            const urlInputGroup = document.getElementById("url-input");
 
-          if (activeTab === "text") {
-            analyzeText();
-          } else {
-            analyzeURL();
-          }
-        });
+            // UI elements
+            const analyzeBtn = document.getElementById("analyze-btn");
+            const errorBox = document.getElementById("error");
+            const errorMsg = document.getElementById("error-message");
+            const loader = document.getElementById("loader");
+            const results = document.getElementById("results");
 
-        // Analyze TEXT
-        function analyzeText() {
-          const text = document.getElementById("news-text").value.trim();
+            // Results elements
+            const predictionText = document.getElementById("prediction-text");
+            const confidenceValue = document.getElementById("confidence-value");
+            const realProb = document.getElementById("real-prob");
+            const fakeProb = document.getElementById("fake-prob");
+            const realFill = document.getElementById("real-fill");
+            const fakeFill = document.getElementById("fake-fill");
 
-          if (!text) return showError("Please enter some text to analyze.");
+            // Switch Tabs
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach((t) => t.classList.remove("active"));
+                    tab.classList.add("active");
 
-          sendRequest({ text: text });
+                    const selected = tab.dataset.tab;
+
+                    if (selected === "text") {
+                        textInputGroup.classList.add("active");
+                        urlInputGroup.classList.remove("active");
+                    } else {
+                        textInputGroup.classList.remove("active");
+                        urlInputGroup.classList.add("active");
+                    }
+                });
+            });
+
+            // Analyze button
+            analyzeBtn.addEventListener("click", () => {
+                const activeTab = document.querySelector(".tab.active").dataset.tab;
+
+                if (activeTab === "text") {
+                    analyzeText();
+                } else {
+                    analyzeURL();
+                }
+            });
+
+            // Analyze TEXT
+            function analyzeText() {
+                const text = document.getElementById("news-text").value.trim();
+
+                if (!text) return showError("Please enter some text to analyze.");
+
+                sendRequest({ text: text });
+            }
+
+            // Analyze URL
+            function analyzeURL() {
+                const url = document.getElementById("article-url").value.trim();
+                if (!url) return showError("Please enter a URL.");
+                if (!isValidUrl(url)) return showError("Please enter a valid URL.");
+
+                // For URL analysis, we would need to extract text from the URL
+                // This is a placeholder - you'd need to implement this functionality
+                showError("URL analysis is not implemented in this demo. Please use the text tab.");
+            }
+
+            // Send request to backend API
+            async function sendRequest(payload) {
+                // Reset UI
+                hideError();
+                results.classList.add("hidden");
+                loader.classList.remove("hidden");
+
+                try {
+                    const response = await fetch('/api/analyze', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.status !== "success") {
+                        showError(data.error || "An unknown error occurred.");
+                        return;
+                    }
+                    
+                    displayResults(data);
+                } catch (error) {
+                    showError("Failed to analyze. Please try again.");
+                    console.error("API Error:", error);
+                } finally {
+                    loader.classList.add("hidden");
+                }
+            }
+
+            // Display results
+            function displayResults(data) {
+                predictionText.textContent = data.prediction;
+                confidenceValue.textContent = `${data.confidence}%`;
+
+                realProb.textContent = `${data.real_probability}%`;
+                fakeProb.textContent = `${data.fake_probability}%`;
+
+                realFill.style.width = `${data.real_probability}%`;
+                fakeFill.style.width = `${data.fake_probability}%`;
+
+                predictionText.className = "value";
+                predictionText.classList.add(
+                    data.prediction === "Real News" ? "real" : "fake"
+                );
+
+                results.classList.remove("hidden");
+                results.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            // Error handling
+            function showError(msg) {
+                errorMsg.textContent = msg;
+                errorBox.classList.remove("hidden");
+                errorBox.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            function hideError() {
+                errorBox.classList.add("hidden");
+            }
+
+            // Validate URL
+            function isValidUrl(str) {
+                try {
+                    new URL(str);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
         }
-
-        // Analyze URL
-        function analyzeURL() {
-          const url = document.getElementById("article-url").value.trim();
-          if (!url) return showError("Please enter a URL.");
-          if (!isValidUrl(url)) return showError("Please enter a valid URL.");
-
-          sendRequest({ url: url });
-        }
-
-        // Send request to Flask backend
-        function sendRequest(payload) {
-          // Reset UI
-          hideError();
-          results.classList.add("hidden");
-          loader.classList.remove("hidden");
-
-          fetch("/api/analyze", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: textInput }),
-          })
-            .then((r) => r.json())
-            .then((data) => {
-              if (data.status !== "success") {
-                showError(data.error || "An unknown error occurred.");
-                return;
-              }
-              displayResults(data);
-            })
-            .catch(() => showError("Failed to analyze. Please try again."))
-            .finally(() => loader.classList.add("hidden"));
-        }
-
-        // Display results
-        function displayResults(data) {
-          predictionText.textContent = data.prediction;
-          confidenceValue.textContent = `${data.confidence}%`;
-
-          realProb.textContent = `${data.real_probability}%`;
-          fakeProb.textContent = `${data.fake_probability}%`;
-
-          realFill.style.width = `${data.real_probability}%`;
-          fakeFill.style.width = `${data.fake_probability}%`;
-
-          predictionText.className = "";
-          predictionText.classList.add(
-            data.prediction === "Real News" ? "real" : "fake"
-          );
-
-          results.classList.remove("hidden");
-          results.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        // Error handling
-        function showError(msg) {
-          errorMsg.textContent = msg;
-          errorBox.classList.remove("hidden");
-          errorBox.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        function hideError() {
-          errorBox.classList.add("hidden");
-        }
-
-        // Validate URL
-        function isValidUrl(str) {
-          try {
-            new URL(str);
-            return true;
-          } catch {
-            return false;
-          }
-        }
-      });
     </script>
-  </body>
+</body>
 </html>
 
 <!-- <!DOCTYPE html>
