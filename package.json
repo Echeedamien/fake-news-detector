@@ -1,16 +1,15 @@
 {
   "name": "fake-news-detector",
   "version": "1.0.0",
-  "description": "Fake News Detection App",
+  "description": "AI-powered fake news detection system",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'No build step required for static site'"
+    "dev": "vercel dev"
   },
   "dependencies": {
-    "node-fetch": "^3.3.0"
+    "@vercel/node": "^4.0.0"
   },
   "devDependencies": {
-    "@vercel/node": "^2.0.0"
+    "vercel": "^28.0.0"
   },
   "engines": {
     "node": ">=18.x"
