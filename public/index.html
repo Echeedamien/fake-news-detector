@@ -1,267 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Fake News Detector</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fake News Detector</title>
 
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- New styles (replace your existing styles.css with the CSS below) -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- NAV -->
-    <header class="site-header">
-      <div class="container header-inner">
-        <div class="brand">
-          <i class="fas fa-newspaper brand-icon" aria-hidden="true"></i>
-          <span class="brand-title"
-            >FakeNews<span class="brand-accent">Detector</span></span
-          >
-        </div>
+  <!-- Main stylesheet (extracted & merged landing-page style) -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-        <nav class="site-nav" aria-label="Main navigation">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/about" class="nav-link">About</a>
-        </nav>
+  <!-- Header (landing page header preserved) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <i class="fas fa-robot brand-icon" aria-hidden="true"></i>
+        <span class="brand-title">FakeNews<span class="brand-accent">Detector</span></span>
       </div>
-    </header>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-left">
-          <h1 class="hero-title">
-            Detect Fake News — Fast, Clear, Trustworthy
-          </h1>
-          <p class="hero-sub">
-            Paste article text or a URL and our AI-powered engine will analyze
-            language patterns and source signals to give a prediction and
-            confidence score.
-          </p>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How it works</a>
+        <a href="#demo" class="nav-link">Try it</a>
+      </nav>
+    </div>
+  </header>
 
-          <div id="model-status" class="warning">
-            <i class="fas fa-sync-alt fa-spin"></i>
-            <p id="model-message">Loading AI model, please wait...</p>
-          </div>
+  <!-- Hero (landing design preserved) -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <h1 class="hero-title">Detect Fake News — Fast, Clear, Trustworthy</h1>
+        <p class="hero-sub">Paste article text or a URL and our AI-powered engine will analyze language patterns and source signals to give a prediction and confidence score.</p>
 
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#detector">Scan an article</a>
-            <a class="btn btn-ghost" href="#how-it-works">How it works</a>
-          </div>
+        <div id="model-status" class="alert warning hidden" role="status" aria-live="polite">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="model-message">Model not loaded. Please check if the model files are available.</span>
         </div>
 
-        <div class="hero-right" aria-hidden="true">
-          <div class="illustration-card">
-            <div class="illustration-header">
-              <div class="chip">AI • NLP • Verification</div>
-              <h3>Instant Analysis</h3>
-              <p class="muted">Prediction · Confidence · Evidence</p>
-            </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#demo">Scan an article</a>
+          <a class="btn btn-ghost" href="#how-it-works">How it works</a>
+        </div>
+      </div>
 
-            <div class="illustration-bars">
-              <div class="mini">
-                <div class="label">Fake risk</div>
-                <div class="bar"><div style="width: 38%"></div></div>
-              </div>
-              <div class="mini">
-                <div class="label">Source trust</div>
-                <div class="bar"><div style="width: 82%"></div></div>
-              </div>
+      <div class="hero-right" aria-hidden="true">
+        <div class="illustration-card">
+          <div class="illustration-header">
+            <div class="chip">AI • NLP • Verification</div>
+            <h3>Instant Analysis</h3>
+            <p class="muted">Prediction · Confidence · Evidence</p>
+          </div>
+
+          <div class="illustration-bars">
+            <div class="mini">
+              <div class="label">Fake risk</div>
+              <div class="bar"><div style="width:38%"></div></div>
+            </div>
+            <div class="mini">
+              <div class="label">Source trust</div>
+              <div class="bar"><div style="width:82%"></div></div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- DETECTOR -->
-    <main id="detector" class="container main-container">
-      <section class="detector-card">
-        <h2 class="section-title">Check News Authenticity</h2>
+  <!-- FEATURES (landing page) -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Why Choose Fake News Detector</h2>
 
-        <!-- Tabs -->
-        <div class="tabs" role="tablist" aria-label="Input type">
-          <button
-            class="tab active"
-            role="tab"
-            aria-selected="true"
-            data-tab="text"
-          >
-            Text
-          </button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="url">
-            URL
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h3>AI-Powered Analysis</h3>
+          <p>Our model evaluates linguistic patterns and context to detect misinformation.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Fast Results</h3>
+          <p>Get instant verification of news authenticity within seconds.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Stay Protected</h3>
+          <p>Verify headlines and articles before sharing to reduce misinformation spread.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (landing page) -->
+  <section id="how-it-works" class="how-section">
+    <div class="container">
+      <h3 class="section-title">How it works</h3>
+      <div class="how-grid">
+        <div class="how-item">
+          <i class="fas fa-brain"></i>
+          <h5>AI Analysis</h5>
+          <p class="muted">NLP model analyses language patterns and markers of misinformation.</p>
+        </div>
+        <div class="how-item">
+          <i class="fas fa-link"></i>
+          <h5>Source Checks</h5>
+          <p class="muted">Cross-checks claims against trusted sources and fact-check databases.</p>
+        </div>
+        <div class="how-item">
+          <i class="fas fa-user-shield"></i>
+          <h5>Explainability</h5>
+          <p class="muted">Concise reasoning so you understand the result.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO / DETECTOR SECTION: REPLACED WITH YOUR REAL DETECTOR (IDs preserved) -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <h2 class="section-title">Try Our Detector</h2>
+
+      <div class="demo-container" aria-live="polite">
+        <p class="muted">Paste news content or a URL below to check its credibility</p>
+
+        <!-- Tabs (kept .tab class for your JS) -->
+        <div class="tab-row" role="tablist" aria-label="Input type">
+          <button class="tab active" data-tab="text" type="button">Text</button>
+          <button class="tab" data-tab="url" type="button">URL</button>
+        </div>
+
+        <!-- Text input group -->
+        <div id="text-input" class="input-group active">
+          <textarea id="news-text" placeholder="Paste news article or headline here..."></textarea>
+        </div>
+
+        <!-- URL input group -->
+        <div id="url-input" class="input-group" aria-hidden="true">
+          <input id="article-url" type="url" placeholder="Paste news article URL here (e.g., https://example.com/news)" />
+        </div>
+
+        <!-- buttons -->
+        <div class="analyze-btn-wrapper">
+          <button id="analyze-btn" disabled><i class="fas fa-search"></i> Analyze</button>
+          <button id="clear-btn" class="ghost-btn" type="button" title="Clear inputs" onclick="document.getElementById('news-text').value=''; document.getElementById('article-url').value=''">
+            <i class="fas fa-eraser"></i>
           </button>
         </div>
 
-        <!-- Input card -->
-        <div class="input-card">
-          <div id="text-input" class="input-group active" aria-hidden="false">
-            <label for="news-text" class="sr-only">Paste article text</label>
-            <textarea
-              id="news-text"
-              placeholder="Paste article text or headline here..."
-              rows="8"
-            ></textarea>
-          </div>
-
-          <div id="url-input" class="input-group" aria-hidden="true">
-            <label for="article-url" class="sr-only">Article URL</label>
-            <input
-              id="article-url"
-              type="url"
-              placeholder="https://example.com/news-article"
-            />
-          </div>
-
-          <div class="controls">
-            <div class="controls-left">
-              <button id="analyze-btn" class="btn btn-primary" disabled>
-                <i class="fas fa-search"></i>
-                <span>Analyze</span>
-              </button>
-              <button
-                id="clear-btn"
-                class="btn btn-ghost"
-                type="button"
-                title="Clear inputs"
-                onclick="document.getElementById('news-text').value=''; document.getElementById('article-url').value=''"
-              >
-                <i class="fas fa-eraser"></i>
-              </button>
-            </div>
-
-            <div class="controls-right">
-              <small class="muted">Choose Text or URL above</small>
-            </div>
-          </div>
-
-          <!-- Error -->
-          <div
-            id="error"
-            class="error hidden"
-            role="alert"
-            aria-live="assertive"
-          >
-            <i class="fas fa-exclamation-circle"></i>
-            <span id="error-message"></span>
-          </div>
-
-          <!-- Loader -->
-          <div id="loader" class="loader hidden" aria-hidden="true">
-            <div class="spinner" role="status" aria-hidden="true"></div>
-            <div class="loader-text">Analyzing content...</div>
-          </div>
+        <!-- Model status (preserved ID) -->
+        <div id="model-status" class="alert hidden" role="status" aria-live="polite">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="model-message">Model not loaded. Please check if the model files are available.</span>
         </div>
 
-        <!-- Results -->
-        <div id="results" class="results hidden" aria-live="polite">
+        <!-- Error (preserved IDs) -->
+        <div id="error" class="error hidden" role="alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="error-message"></span>
+        </div>
+
+        <!-- Loader (preserved ID) -->
+        <div id="loader" class="loader hidden" aria-hidden="true">
+          <div class="spinner" role="status" aria-hidden="true"></div>
+          <div class="loader-text">Analyzing content...</div>
+        </div>
+
+        <!-- Results (preserved IDs) -->
+        <div id="results" class="hidden" aria-live="polite">
           <div class="results-top">
-            <div class="prediction-block">
-              <span id="prediction-text" class="prediction-chip value">—</span>
-              <div class="confidence-block">
-                <div class="label">Confidence</div>
-                <div id="confidence-value" class="confidence-value">0%</div>
-              </div>
+            <div>
+              <div id="prediction-text" class="prediction value">—</div>
             </div>
-
-            <div class="meta-block">
-              <div><strong id="reading-time">—</strong> reading</div>
-              <div><strong id="complexity">—</strong> complexity</div>
+            <div class="confidence">
+              <div>Confidence</div>
+              <div id="confidence-value">0%</div>
             </div>
           </div>
 
-          <div class="probability-visual">
-            <div class="prob-col">
-              <div class="prob-title">Real</div>
-              <div class="big-bar">
-                <div class="fill real" id="real-fill" style="width: 0%"></div>
-              </div>
-              <div class="prob-number" id="real-prob">0%</div>
+          <div class="prob-row">
+            <div style="flex:1; margin-right:12px;">
+              <div class="prob-label">Real News <span id="real-prob">0%</span></div>
+              <div class="prob-bar"><div id="real-fill" class="fill real" style="width:0%"></div></div>
             </div>
-
-            <div class="prob-col">
-              <div class="prob-title">Fake</div>
-              <div class="big-bar">
-                <div class="fill fake" id="fake-fill" style="width: 0%"></div>
-              </div>
-              <div class="prob-number" id="fake-prob">0%</div>
+            <div style="flex:1;">
+              <div class="prob-label">Fake News <span id="fake-prob">0%</span></div>
+              <div class="prob-bar"><div id="fake-fill" class="fill fake" style="width:0%"></div></div>
             </div>
           </div>
 
-          <div class="analysis-grid">
-            <div class="card analysis-card">
-              <h4>Verification</h4>
-              <p id="verification-result" class="muted">
-                Evidence & source checks will appear here.
-              </p>
+          <div style="margin-top:14px;">
+            <div class="analysis-grid" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+              <div class="feature-card" style="flex:1;min-width:220px;">
+                <h4>Verification</h4>
+                <p id="verification-result" class="muted">Source checks and evidence will appear here.</p>
+              </div>
+              <div class="feature-card" style="flex:1;min-width:220px;">
+                <h4>Sentiment</h4>
+                <p id="sentiment-result" class="muted">Tone and sentiment.</p>
+              </div>
+              <div class="feature-card" style="flex:1;min-width:220px;">
+                <h4>Summary</h4>
+                <p id="summary-result" class="muted">Short summary of the article.</p>
+              </div>
             </div>
-
-            <div class="card analysis-card">
-              <h4>Sentiment</h4>
-              <p id="sentiment-result" class="muted">
-                Tone and sentiment summary.
-              </p>
-            </div>
-
-            <div class="card analysis-card full">
-              <h4>Summary</h4>
-              <p id="summary-result" class="muted">
-                Short summary of the article will appear here.
-              </p>
-            </div>
-          </div>
-
-          <div class="results-footer muted">
-            Output is an aid — verify using multiple sources before sharing.
           </div>
         </div>
-      </section>
-
-      <!-- How it works -->
-      <section id="how-it-works" class="how-section">
-        <h3 class="section-title">How it works</h3>
-        <div class="how-grid">
-          <div class="how-item">
-            <i class="fas fa-brain"></i>
-            <h5>AI Analysis</h5>
-            <p class="muted">
-              NLP model analyses language patterns and markers of
-              misinformation.
-            </p>
-          </div>
-          <div class="how-item">
-            <i class="fas fa-link"></i>
-            <h5>Source Checks</h5>
-            <p class="muted">
-              Cross-checks claims against trusted sources and fact-check
-              databases.
-            </p>
-          </div>
-          <div class="how-item">
-            <i class="fas fa-user-shield"></i>
-            <h5>Explainability</h5>
-            <p class="muted">Concise reasoning so you understand the result.</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="container">
-        <small>© 2025 FakeNewsDetector — Built with care</small>
+        <!-- end results -->
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <!-- Keep your script name -->
-    <script src="app.js"></script>
-  </body>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <small>© 2025 FakeNewsDetector — Built with care</small>
+    </div>
+  </footer>
+
+  <!-- Keep your script — do NOT change -->
+  <script src="app.js"></script>
+</body>
 </html>
 
 <!-- <!DOCTYPE html>
