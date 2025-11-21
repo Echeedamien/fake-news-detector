@@ -55,6 +55,86 @@ body {
 /* Hero detector container */
 .hero-detector { margin-top: 22px; }
 
+/* HOW IT WORKS — Modern Card Styling */
+.how-section {
+    padding: 80px 0;
+    background: linear-gradient(to bottom, #f8f9fa, #eef1f5);
+}
+
+.how-section .section-title {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: var(--dark);
+}
+
+.how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 10px;
+}
+
+.how-item {
+    background: white;
+    text-align: center;
+    padding: 35px 28px;
+    border-radius: 18px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+    transition: all .3s ease;
+    border: 1px solid #eef0f3;
+}
+
+.how-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 15px 30px rgba(0,0,0,0.12);
+}
+
+/* ICON DESIGN */
+.how-item i {
+    font-size: 2.4rem;
+    margin-bottom: 18px;
+    color: var(--primary);
+    background: rgba(58, 134, 255, 0.12);
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+}
+
+.how-item:hover i {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* HEADINGS */
+.how-item h5 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+/* PARAGRAPHS */
+.how-item .muted {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .how-section {
+        padding: 60px 0;
+    }
+    .how-item {
+        padding: 28px;
+    }
+}
+
 /* Detector card (keeps IDs intact) */
 .detector-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
