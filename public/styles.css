@@ -216,3 +216,43 @@ body {
   .hero-title{font-size:1.6rem}
   .tabs{gap:6px}
 }
+
+/* WHY CHOOSE SECTION */
+.features-why {
+    padding: 60px 0;
+}
+
+.features-why h2,
+#why-choose h2 {
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--dark);
+}
+
+.feature-block {
+    margin-bottom: 35px;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 40px auto;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.feature-block i {
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin-top: 2px;
+}
+
+.feature-block h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.feature-block p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0;
+}
