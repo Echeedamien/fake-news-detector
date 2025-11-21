@@ -344,3 +344,22 @@ textarea::placeholder,
 input[type="text"]::placeholder {
     color: #777;              /* Make placeholder visible */
 }
+.input-group input,
+.input-group textarea {
+    background: #f7f9fc !important;  /* Slight grey background */
+    border: 1px solid #dce3ed !important;
+    color: #000 !important;
+}
+
+.input-group.active {
+    display: block !important;
+}
+
+.tab {
+    opacity: 0.5;
+}
+
+.tab.active {
+    opacity: 1;
+    font-weight: 600;
+}
