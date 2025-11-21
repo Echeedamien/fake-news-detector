@@ -110,6 +110,16 @@ body {
     color: #fff;
 }
 
+.hero h1 {
+    background: linear-gradient(45deg, var(--primary), var(--accent)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.hero p {
+    color: #444 !important;
+}
+
 /* HEADINGS */
 .how-item h5 {
     font-size: 1.25rem;
